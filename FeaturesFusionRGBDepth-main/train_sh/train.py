@@ -170,7 +170,7 @@ def run(
     
     lr = init_lr
     optimizer = optim.AdamW(model.parameters(), lr=lr, weight_decay=0.001)
-    T_max = 50  # Số bước tối đa, có thể điều chỉnh tùy theo bài toán
+    T_max = 5  # Số bước tối đa, có thể điều chỉnh tùy theo bài toán
     scheduler = CosineAnnealingLR(optimizer, T_max=T_max)
     # learning_scheduler = optim.lr_scheduler.ExponentialLR(optimizer, gamma=learnig_scheduler_gammar)
 
@@ -225,7 +225,7 @@ def run(
                     # update each num_steps_per_update batch
                     if num_iter == num_gradient_per_update :
                         
-                        torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=5.0)
+                        torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=2.0)
                         #update weight
                         optimizer.step()
                         optimizer.zero_grad()
