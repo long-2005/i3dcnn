@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 from resources.utils import *
 from resources import get_model
 from torch.optim.lr_scheduler import CosineAnnealingLR
-
+from torch.optim.lr_scheduler import ReduceLROnPlateau
 
 
 # save infomation during training
@@ -171,8 +171,10 @@ def run(
     lr = init_lr
     optimizer = optim.AdamW(model.parameters(), lr=lr, weight_decay=0.005)
     T_max = 5  # Số bước tối đa, có thể điều chỉnh tùy theo bài toán
-    scheduler = CosineAnnealingLR(optimizer, T_max=T_max)
-    # learning_scheduler = optim.lr_scheduler.ExponentialLR(optimizer, gamma=learnig_scheduler_gammar)
+    scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.1, patience=5, verbose=True)
+# Giảm LR khi validation loss không cải thiện sau 5 epochs
+
+    
 
  
     steps = 0
