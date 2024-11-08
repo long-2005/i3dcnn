@@ -269,7 +269,12 @@ def run(
                
             scheduler.step()
     #save model
-    torch.save(model.module.state_dict(), save_model+f'last.pt')
+    # Kiểm tra xem model có phải là DataParallel không
+    if isinstance(model, torch.nn.DataParallel):
+        torch.save(model.module.state_dict(), save_model+f'last.pt')
+    else:
+        torch.save(model.state_dict(), save_model+f'last.pt')
+
     plt.figure(clear=True)
     plt.plot(train_loss)
     plt.ylabel("Loss")
