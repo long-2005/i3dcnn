@@ -170,8 +170,8 @@ def run(
     
     lr = init_lr
     optimizer = optim.AdamW(model.parameters(), lr=lr, weight_decay=0.01)
-    step_size = 2  # Số epoch sau mỗi lần giảm lr
-    gamma = 0.1  # Giảm lr theo tỷ lệ này
+    step_size = 5  # Số epoch sau mỗi lần giảm lr
+    gamma = 0.001  # Giảm lr theo tỷ lệ này
     scheduler = StepLR(optimizer, step_size=step_size, gamma=gamma)
 # Giảm LR khi validation loss không cải thiện sau 5 epochs
 
