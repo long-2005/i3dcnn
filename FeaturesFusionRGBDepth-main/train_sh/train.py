@@ -16,6 +16,7 @@ import logging.handlers
 import matplotlib.pyplot as plt
 from resources.utils import *
 from resources import get_model
+from torch.optim.lr_scheduler import CosineAnnealingLR
 
 
 
@@ -170,7 +171,6 @@ def run(
     lr = init_lr
     optimizer = optim.AdamW(model.parameters(), lr=lr, weight_decay=0.0000001)
     T_max = 50  # Số bước tối đa, có thể điều chỉnh tùy theo bài toán
-    from torch.optim.lr_scheduler import CosineAnnealingLR
     scheduler = CosineAnnealingLR(optimizer, T_max=T_max)
     # learning_scheduler = optim.lr_scheduler.ExponentialLR(optimizer, gamma=learnig_scheduler_gammar)
 
