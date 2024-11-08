@@ -18,7 +18,7 @@ from resources.utils import *
 from resources import get_model
 from torch.optim.lr_scheduler import CosineAnnealingLR
 from torch.optim.lr_scheduler import ReduceLROnPlateau
-
+from torch.optim.lr_scheduler import StepLR
 
 # save infomation during training
 os.makedirs('logs',exist_ok=True)
@@ -169,9 +169,10 @@ def run(
     print(f"Model name {model_name} ")
     
     lr = init_lr
-    optimizer = optim.AdamW(model.parameters(), lr=lr, weight_decay=0.005)
-    T_max = 5  # Số bước tối đa, có thể điều chỉnh tùy theo bài toán
-    scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.1, patience=5, verbose=True)
+    optimizer = optim.AdamW(model.parameters(), lr=lr, weight_decay=0.01)
+    step_size = 2  # Số epoch sau mỗi lần giảm lr
+    gamma = 0.1  # Giảm lr theo tỷ lệ này
+    scheduler = StepLR(optimizer, step_size=step_size, gamma=gamma)
 # Giảm LR khi validation loss không cải thiện sau 5 epochs
 
     
@@ -270,7 +271,7 @@ def run(
                     best_valid_loss = current_valid_loss
  
                
-            scheduler.step(valid_loss)
+            scheduler.step()
     #save model
     current_time = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
