@@ -270,11 +270,15 @@ def run(
                
             scheduler.step()
     #save model
+    current_time = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+
     # Kiểm tra xem model có phải là DataParallel không
     if isinstance(model, torch.nn.DataParallel):
-        torch.save(model.module.state_dict(), save_model+f'last.pt')
+    # Lưu trọng số mô hình khi sử dụng DataParallel với tên tệp là ngày giờ
+        torch.save(model.module.state_dict(), f'model_{current_time}.pt')
     else:
-        torch.save(model.state_dict(), save_model+f'last.pt')
+    # Lưu trọng số mô hình khi không sử dụng DataParallel với tên tệp là ngày giờ
+        torch.save(model.state_dict(), f'model_{current_time}.pt')
 
     plt.figure(clear=True)
     plt.plot(train_loss)
