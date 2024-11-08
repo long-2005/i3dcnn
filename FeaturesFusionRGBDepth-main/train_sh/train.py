@@ -270,7 +270,7 @@ def run(
                     best_valid_loss = current_valid_loss
  
                
-            scheduler.step(val_loss)
+            scheduler.step(valid_loss)
     #save model
     current_time = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
