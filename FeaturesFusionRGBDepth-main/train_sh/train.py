@@ -169,7 +169,7 @@ def run(
     print(f"Model name {model_name} ")
     
     lr = init_lr
-    optimizer = optim.AdamW(model.parameters(), lr=lr, weight_decay=0.0000001)
+    optimizer = optim.AdamW(model.parameters(), lr=lr, weight_decay=0.001)
     T_max = 50  # Số bước tối đa, có thể điều chỉnh tùy theo bài toán
     scheduler = CosineAnnealingLR(optimizer, T_max=T_max)
     # learning_scheduler = optim.lr_scheduler.ExponentialLR(optimizer, gamma=learnig_scheduler_gammar)
