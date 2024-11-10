@@ -170,7 +170,7 @@ def run(
     
     lr = init_lr
     optimizer = optim.AdamW(model.parameters(), lr=lr,weight_decay=0.01)
-    tep_size = 5  # Sau mỗi 10 epochs sẽ giảm lr
+    step_size = 5  # Sau mỗi 10 epochs sẽ giảm lr
     gamma = 0.1  # Giảm lr xuống 10% mỗi lần
     scheduler = StepLR(optimizer, step_size=step_size, gamma=gamma)        
    
